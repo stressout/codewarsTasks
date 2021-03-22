@@ -1,0 +1,36 @@
+public static BigInteger easyLine(int requireRow) {
+        long[][] pascalTriangle = initializingPascalTriangle(requireRow);
+        for (int row = 2; row <= requireRow; row++) {
+            long[] valuesFromPreviousDimension = fillArrayFromPreviousDimension(pascalTriangle[row - 1], row - 1);
+            for (int arrayCell = 1; arrayCell <= pascalTriangle[row].length - 2; arrayCell++) {
+                pascalTriangle[row][arrayCell] = valuesFromPreviousDimension[arrayCell - 1];
+            }
+        }
+        BigInteger result = new BigInteger("0");
+        for (int currentCell = 0; currentCell < pascalTriangle[requireRow].length; currentCell++)
+        {
+            BigInteger firstValue = new BigInteger(String.valueOf(pascalTriangle[requireRow][currentCell]));
+            firstValue = firstValue.multiply(firstValue);
+            result = result.add(firstValue);
+        }
+        return result;
+    }
+
+    public static long[][] initializingPascalTriangle(int rows) {
+        long[][] pascalTriangle = new long[rows + 1][];
+        pascalTriangle[0] = new long[1];
+        pascalTriangle[0][0] = 1;
+        for (int row = 1; row <= rows; row++) {
+            pascalTriangle[row] = new long[row + 1];
+            for (int position = 0; position < 2; position++)
+                pascalTriangle[row][position == 0 ? position : pascalTriangle[row].length - position] = 1;
+        }
+        return pascalTriangle;
+    }
+
+    public static long[] fillArrayFromPreviousDimension(long[] currentArray, long rowArray) {
+        long[] resultArray = new long[currentArray.length - 1];
+        for (int position = 0; position < rowArray; position++)
+            resultArray[position] = currentArray[position] + currentArray[position + 1];
+        return resultArray;
+    }
