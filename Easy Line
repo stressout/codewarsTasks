@@ -7,11 +7,9 @@ public static BigInteger easyLine(int requireRow) {
             }
         }
         BigInteger result = new BigInteger("0");
-        for (int currentCell = 0; currentCell < pascalTriangle[requireRow].length; currentCell++)
-        {
+        for (int currentCell = 0; currentCell < pascalTriangle[requireRow].length; currentCell++) {
             BigInteger firstValue = new BigInteger(String.valueOf(pascalTriangle[requireRow][currentCell]));
-            firstValue = firstValue.multiply(firstValue);
-            result = result.add(firstValue);
+            result = result.add(firstValue.multiply(firstValue));
         }
         return result;
     }
