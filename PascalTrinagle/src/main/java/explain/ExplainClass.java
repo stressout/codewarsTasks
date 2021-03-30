@@ -1,6 +1,8 @@
 package explain;
 
+import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 
 public class ExplainClass {
 
@@ -26,19 +28,13 @@ public class ExplainClass {
         private static final String pathToFileTriangle = "src\\main\\resources\\Triangle.txt";
 
         private static void drawTriangle() {
-            try (FileReader triangleReader = new FileReader(pathToFileTriangle)) {
-                System.out.print("\n\t\t\t\t\t");
-                while (triangleReader.ready()) {
-                    char ch = (char) triangleReader.read();
-                    System.out.print(ch);
-                    if (ch == '\n')
-                        System.out.print("\t\t\t\t\t");
-                }
-            } catch (Exception ex) {
-                ex.printStackTrace();
+            try (BufferedReader triangleReader = new BufferedReader(new FileReader(pathToFileTriangle))) {
+                String line;
+                while ((line = triangleReader.readLine()) != null)
+                    System.out.println(line);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            System.out.println("\n");
         }
     }
-
 }
